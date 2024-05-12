@@ -1,0 +1,12 @@
+Folder Model chứa các model đã được Train, mấy ông chỉ cần lôi ra sử dụng,
+còn trong folder code có chứa code để mấy ông tham khảo cách sử dụng model.
+
+File fire.h5 là model nhận input là 1 ảnh đầu vào và output là 1 số tượng 
+trưng cho khả năng cháy. Có thể tham khảo cách sử dụng qua file Test.py
+
+File Fire_data.sav là model nhận input là 8 số đầu vào tương ứng với 8 cột 
+'Temperature[C]', 'Humidity[%]', 'TVOC[ppb]',
+       'eCO2[ppm]', 'Raw H2', 'Raw Ethanol', 'Pressure[hPa]','PM1.0'
+, có thể tham khảo cách sử dụng qua file "DataModel.ipynb" và file dữ liệu
+smoke_detection_iot.csv
+
