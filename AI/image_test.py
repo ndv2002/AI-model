@@ -15,7 +15,7 @@ IMG_SIZE=64
 absolute_path = os.path.join(os.getcwd(), 'Model','Fire.h5')
 model=load_model(absolute_path)
 # image = cv2.imread(r'D:\Study\doancn\testdataset\fire\frame0.jpg')
-absolute_path = os.path.join(os.getcwd(), 'fire.jpg')
+absolute_path = os.path.join(os.path.dirname(os.getcwd()),'storage', sys.argv[1])
 image = cv2.imread(absolute_path)
 
 image = cv2.resize(image, (IMG_SIZE, IMG_SIZE))
@@ -25,6 +25,5 @@ image = np.expand_dims(image, axis=0)
 # print(image.shape)
 fire_prob = model.predict(image)[0][0] * 100
 print(fire_prob)
-sys.stdout.flush()
 
 
