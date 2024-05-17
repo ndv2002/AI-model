@@ -3,4 +3,5 @@ numpy==1.26.4
 opencv_python==4.9.0.80
 Requests==2.31.0
 tensorflow==2.16.1
+uvicorn==0.29.0
 
