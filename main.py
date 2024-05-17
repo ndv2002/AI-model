@@ -1,8 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, Response #import class FastAPI() từ thư viện fastapi
-import subprocess
 import os
-import uuid
-from random import randint
 import sys
 sys.path.append('./AI')
 from image_test import run_model

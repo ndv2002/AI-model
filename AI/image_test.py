@@ -1,15 +1,14 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-import sys
-import json
-import requests
+# import sys
+# import json
+# import requests
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import img_to_array
 import numpy as np
 import cv2
-import time
 
 
 
