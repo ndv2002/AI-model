@@ -1,3 +1,6 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 import sys
 import json
 import requests
@@ -7,23 +10,37 @@ from tensorflow.keras.preprocessing.image import img_to_array
 import numpy as np
 import cv2
 import time
-import os
+
 
 
 # loading the stored model from file
-IMG_SIZE=64
-absolute_path = os.path.join(os.getcwd(), 'Model','Fire.h5')
-model=load_model(absolute_path)
-# image = cv2.imread(r'D:\Study\doancn\testdataset\fire\frame0.jpg')
-absolute_path = os.path.join(os.path.dirname(os.getcwd()),'storage', sys.argv[1])
-image = cv2.imread(absolute_path)
+# IMG_SIZE=64
+# absolute_path = os.path.join(os.getcwd(), 'Model','Fire.h5')
+# model=load_model(absolute_path)
+# # image = cv2.imread(r'D:\Study\doancn\testdataset\fire\frame0.jpg')
+# absolute_path = os.path.join(os.path.dirname(os.getcwd()),'storage', sys.argv[1])
+# image = cv2.imread(absolute_path)
 
-image = cv2.resize(image, (IMG_SIZE, IMG_SIZE))
-image = image.astype("float") / 255.0
-image = img_to_array(image)
-image = np.expand_dims(image, axis=0)
-# print(image.shape)
-fire_prob = model.predict(image)[0][0] * 100
-print(fire_prob)
+# image = cv2.resize(image, (IMG_SIZE, IMG_SIZE))
+# image = image.astype("float") / 255.0
+# image = img_to_array(image)
+# image = np.expand_dims(image, axis=0)
+# # print(image.shape)
+# fire_prob = model.predict(image)[0][0] * 100
+# print(fire_prob)
 
+def run_model(arg):
+    IMG_SIZE=64
+    absolute_path = os.path.join(os.getcwd(),'AI', 'Model','Fire.h5')
+    model=load_model(absolute_path)
+    # image = cv2.imread(r'D:\Study\doancn\testdataset\fire\frame0.jpg')
+    absolute_path = os.path.join(os.getcwd(),'storage', arg)
+    image = cv2.imread(absolute_path)
 
+    image = cv2.resize(image, (IMG_SIZE, IMG_SIZE))
+    image = image.astype("float") / 255.0
+    image = img_to_array(image)
+    image = np.expand_dims(image, axis=0)
+    # print(image.shape)
+    fire_prob = model.predict(image)[0][0] * 100
+    return(fire_prob)
