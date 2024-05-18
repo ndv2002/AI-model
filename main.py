@@ -1,8 +1,9 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Response #import class FastAPI() từ thư viện fastapi
+from fastapi import FastAPI, UploadFile, File, HTTPException, Response, Request #import class FastAPI() từ thư viện fastapi
 import os
 import sys
 sys.path.append('./AI')
 from image_test import run_model
+from data_test import run_data_model
 
 
 IMAGE_FOLDER='./storage'
@@ -16,7 +17,7 @@ app = FastAPI() # gọi constructor và gán vào biến app
 async def root(): # do dùng ASGI nên ở đây thêm async, nếu bên thứ 3 không hỗ trợ thì bỏ async đi
     return {"message": "Hello World"}
 
-@app.post("/model/image",status_code=200) # giống flask, khai báo phương thức get và url
+@app.post("/api/model/image",status_code=200) # giống flask, khai báo phương thức get và url
 async def image_test(image: UploadFile = File(...)): # do dùng ASGI nên ở đây thêm async, nếu bên thứ 3 không hỗ trợ thì bỏ async đi
     try:
         filename = image.filename
@@ -58,4 +59,20 @@ async def image_test(image: UploadFile = File(...)): # do dùng ASGI nên ở đ
 #     # and StreamingResponse expects an iterator/generator
 #     response = Response(content=db[random_index])
 
-#     return response        
+#     return response   
+
+@app.post("/api/model/data",status_code=200)
+async def data_test(request: Request): 
+    try:
+        try:
+            data = await request.json()
+            values = data["values"]
+            # Convert elements to floats (assuming they are numbers)
+            float_values = [float(v) for v in values]
+            # Call the processing function with the converted list
+            response = await run_data_model(float_values)
+            return {"value":response} 
+        except (KeyError, ValueError):
+            return {"error": "Invalid request data. Please provide a list of numbers under the key 'values'."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
